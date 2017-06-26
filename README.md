@@ -21,5 +21,5 @@ js file.
 
 # WARNING
 
-** This tool will overwrite on any naming conflicts so don't have a `Something.js` 
-and a `Something.wml` in your codebase! **
+This tool will overwrite on any naming conflicts so don't have a `Something.js` 
+and a `Something.wml` in your codebase!
