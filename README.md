@@ -12,14 +12,14 @@ npm install -g @quenk/wml-cli
 
 ``` sh
 
-wml folder/with/files
+$: wml path/to/files
 
 ```
 
 `wml` will search recursively for any files ending with `.wml` and create a corresponding
 js file. 
 
-WARNING!
+# WARNING
 
-This tool will overwrite on any naming conflicts so don't have a `Something.js` 
-and a `Something.wml` in your codebase!
+** This tool will overwrite on any naming conflicts so don't have a `Something.js` 
+and a `Something.wml` in your codebase! **
