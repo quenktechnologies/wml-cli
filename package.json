@@ -1,6 +1,6 @@
 {
   "name": "@quenk/wml-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI tool for converting wml files to javascript.",
   "main": "lib/index.js",
   "bin": {
