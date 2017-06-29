@@ -9,7 +9,7 @@ import {
 import * as fs from 'fs';
 import * as docopt from 'docopt';
 import * as Future from 'fluture';
-import * as compile from '@quenk/wml';
+import {compile} from '@quenk/wml';
 
 const getFileName = file =>
     `${dirname(file)}/${basename(file, extname(file))}`;
