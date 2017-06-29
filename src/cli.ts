@@ -28,9 +28,10 @@ Usage:
   wml [options] <path>
 
 Options:
-  -h --help     Show this screen.
-  --es2015      Output ES2015 javascript.
-  --version     Show version.
+  -h --help          Show this screen.
+  --extension ext    The file extension to use when writing files. [default: js]
+  --es2015           Output ES2015 javascript.
+  --version          Show version.
 `, {
         version: require('../package.json').version
     });
@@ -48,8 +49,10 @@ const execute = path =>
                     Future
                         .node(cb => fs.readFile(path, { encoding: 'utf8' }, cb))
                         .chain(contents => Future.try(() => compile(contents, getOptions(args))))
-                        .chain(result => Future.node(cb => fs.writeFile(`${getFileName(path)}.js`, result, cb))));
-
+                        .chain(result => 
+                            Future.node(cb =>
+                                fs.writeFile(
+                                  `${getFileName(path)}.${args['--extension']}`, result, cb))));
 
 execute(expand(process.cwd())(args['<path>']))
     .fork(e => (console.error(e.stack), process.exit(255)), () => process.exit(0))
