@@ -55,5 +55,5 @@ const execute = path =>
                                   `${getFileName(path)}.${args['--extension']}`, result, cb))));
 
 execute(expand(process.cwd())(args['<path>']))
-    .fork(e => (console.error(e.stack), process.exit(255)), () => process.exit(0))
+    .fork(e => (console.error(e.stack?e.stack:e), process.exit(255)), () => process.exit(0))
 
