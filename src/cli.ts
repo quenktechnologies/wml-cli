@@ -18,7 +18,10 @@ const expand = parent => path => resolve(parent, path);
 
 const getOptions = args => ({
 
-    es2015: args['--es2015']
+    es5: args['--es5'],
+    pretty: args['--pretty'],
+    main: args['--main'],
+    typescript: args['--typescript']
 
 });
 
@@ -30,7 +33,9 @@ Usage:
 Options:
   -h --help          Show this screen.
   --extension ext    The file extension to use when writing files. [default: js]
-  --es2015           Output ES2015 javascript.
+  --es5              Output ES5 javascript.
+  --typescript       Output typescript instead of ES6 syntax.
+  --pretty           Pretty prints the output.
   --version          Show version.
 `, {
         version: require('../package.json').version
