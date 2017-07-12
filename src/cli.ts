@@ -7,9 +7,29 @@ import {
     extname
 } from 'path';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as docopt from 'docopt';
 import * as Future from 'fluture';
 import {compile} from '@quenk/wml';
+
+/**
+ * CompileError
+ */
+export function CompileError(path, message) {
+
+  this.message = `Error while processing ${path}:${os.EOL}${message}`;
+  this.stack = (new Error(this.message)).stack;
+  this.name = this.constructor.name;
+
+  if (Error.hasOwnProperty('captureStackTrace'))
+    Error.captureStackTrace(this, this.constructor);
+
+}
+
+CompileError.prototype = Object.create(Error.prototype);
+CompileError.prototype.constructor = CompileError;
+
+export default CompileError
 
 const getFileName = file =>
     `${dirname(file)}/${basename(file, extname(file))}`;
@@ -53,7 +73,9 @@ const execute = path =>
                     Future.of() :
                     Future
                         .node(cb => fs.readFile(path, { encoding: 'utf8' }, cb))
-                        .chain(contents => Future.try(() => compile(contents, getOptions(args))))
+                        .chain(contents => 
+                             Future.try(() => compile(contents, getOptions(args)))
+                             .mapRej(e=> new CompileError(path, e.message)))
                         .chain(result => 
                             Future.node(cb =>
                                 fs.writeFile(
