@@ -15,9 +15,9 @@ import {compile} from '@quenk/wml';
 /**
  * CompileError
  */
-export function CompileError(path, message) {
+export function CompileError(path, e) {
 
-  this.message = `Error while processing ${path}:${os.EOL}${message}`;
+  this.message = `Error while processing ${path}:${os.EOL}${e.stack}`;
   this.stack = (new Error(this.message)).stack;
   this.name = this.constructor.name;
 
@@ -75,7 +75,7 @@ const execute = path =>
                         .node(cb => fs.readFile(path, { encoding: 'utf8' }, cb))
                         .chain(contents => 
                              Future.try(() => compile(contents, getOptions(args)))
-                             .mapRej(e=> new CompileError(path, e.message)))
+                             .mapRej(e=> new CompileError(path, e)))
                         .chain(result => 
                             Future.node(cb =>
                                 fs.writeFile(

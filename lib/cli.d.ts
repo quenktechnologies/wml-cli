@@ -1,5 +1,5 @@
 /**
  * CompileError
  */
-export declare function CompileError(path: any, message: any): void;
+export declare function CompileError(path: any, e: any): void;
 export default CompileError;
