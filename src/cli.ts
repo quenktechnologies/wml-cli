@@ -17,7 +17,7 @@ import {compile} from '@quenk/wml';
  */
 export function CompileError(path, e) {
 
-  this.message = `Error while processing ${path}:${os.EOL}${e.stack}`;
+  this.message = `Error while processing ${path}:${os.EOL}${e.stack?e.stack:e}`;
   this.stack = (new Error(this.message)).stack;
   this.name = this.constructor.name;
 
